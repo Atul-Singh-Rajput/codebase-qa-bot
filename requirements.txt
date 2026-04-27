@@ -1,0 +1,30 @@
+# ── PyTorch CPU only (must be first) ─────────────────────
+# Updated to 2.4.0 — required by latest sentence-transformers
+torch==2.4.0+cpu --extra-index-url https://download.pytorch.org/whl/cpu
+
+# ── Embeddings ────────────────────────────────────────────
+sentence-transformers==3.0.1
+transformers==4.44.0          
+
+# ── LangChain Core ───────────────────────────────────────
+langchain==0.2.16
+langchain-community==0.2.16
+langchain-groq==0.1.9
+langchain-huggingface==0.0.3
+
+# ── Vector Store ─────────────────────────────────────────
+chromadb==0.5.3
+
+# ── API ──────────────────────────────────────────────────
+fastapi==0.112.0
+uvicorn==0.30.5
+
+# ── Environment ──────────────────────────────────────────
+python-dotenv==1.0.1
+
+# ── Git cloning ──────────────────────────────────────────
+gitpython==3.1.43
+
+# ── Utilities ────────────────────────────────────────────
+tiktoken==0.7.0
+pydantic==2.8.2
