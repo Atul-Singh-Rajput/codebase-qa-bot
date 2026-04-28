@@ -142,5 +142,5 @@ DELETE /reset
 - [FastAPI](https://fastapi.tiangolo.com/)
 
 
-## Built By
-- [Atul Singh ](www.linkedin.com/in/atulsingh2001)
+## Built With Love By
+- [Atul Singh](https://www.linkedin.com/in/atulsingh2001)
