@@ -97,7 +97,7 @@ export default function IngestPanel({ onIngested }) {
             <label className="block text-sm text-gray-400 mb-1.5">GitHub URL</label>
             <input
               className="input font-mono text-sm"
-              placeholder="https://github.com/tiangolo/fastapi"
+              placeholder="https://github.com/Atul-Singh-Rajput/codebase-qa-bot"
               value={githubUrl}
               onChange={(e) => setGithubUrl(e.target.value)}
               required
