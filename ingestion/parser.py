@@ -12,6 +12,45 @@ import ast
 import os
 
 
+# ── Path Cleaner ──────────────────────────────────────────
+# When repos are cloned into temp folders, the full path
+# looks like /tmp/temp_repo/api/main.py
+# We strip the temp prefix so the bot shows clean paths
+# like api/main.py instead of /tmp/temp_repo/api/main.py
+
+TEMP_PATH_PREFIXES = [
+    "/tmp/temp_repo/",
+    "./temp_repo/",
+    "/temp/temp_repo/",
+    "temp_repo/",
+]
+
+def clean_filepath(filepath: str) -> str:
+    """
+    Strips temp folder prefixes from file paths.
+    
+    Examples:
+        /tmp/temp_repo/api/main.py     → api/main.py
+        ./temp_repo/ingestion/parser.py → ingestion/parser.py
+        ./my_local_project/utils.py    → my_local_project/utils.py
+    """
+    for prefix in TEMP_PATH_PREFIXES:
+        if filepath.startswith(prefix):
+            return filepath[len(prefix):]
+        # Handle Windows-style paths
+        if filepath.replace("\\", "/").startswith(prefix):
+            return filepath.replace("\\", "/")[len(prefix):]
+    
+    # For local folder paths, just return relative path
+    # e.g. ./my_project/api/main.py → my_project/api/main.py
+    if filepath.startswith("./"):
+        return filepath[2:]
+    
+    return filepath
+
+
+# ── Chunk Enrichment ──────────────────────────────────────
+
 def enrich_chunk(chunk: dict) -> dict:
     """
     Prepends a human-readable header to each code chunk.
@@ -30,6 +69,8 @@ def enrich_chunk(chunk: dict) -> dict:
     return chunk
 
 
+# ── Main Parser ───────────────────────────────────────────
+
 def extract_chunks_from_file(filepath: str) -> list[dict]:
     """
     Reads a Python file and extracts chunks at the function/class level
@@ -44,6 +85,9 @@ def extract_chunks_from_file(filepath: str) -> list[dict]:
     if not source.strip():
         return []
 
+    # Clean the filepath — remove temp folder prefixes
+    clean_path = clean_filepath(filepath)
+
     chunks = []
 
     try:
@@ -53,7 +97,7 @@ def extract_chunks_from_file(filepath: str) -> list[dict]:
         chunks.append({
             "content": source,
             "metadata": {
-                "file": filepath,
+                "file": clean_path,          # ← clean path
                 "type": "module",
                 "name": os.path.basename(filepath),
                 "start_line": 1,
@@ -79,7 +123,7 @@ def extract_chunks_from_file(filepath: str) -> list[dict]:
             chunks.append({
                 "content": snippet,
                 "metadata": {
-                    "file": filepath,
+                    "file": clean_path,      # ← clean path
                     "type": node_type,
                     "name": node.name,
                     "start_line": node.lineno,
@@ -92,7 +136,7 @@ def extract_chunks_from_file(filepath: str) -> list[dict]:
         chunks.append({
             "content": source,
             "metadata": {
-                "file": filepath,
+                "file": clean_path,          # ← clean path
                 "type": "module",
                 "name": os.path.basename(filepath),
                 "start_line": 1,
