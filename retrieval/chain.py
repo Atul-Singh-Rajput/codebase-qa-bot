@@ -10,7 +10,7 @@ Flow:
        ↓
   Enriched Prompt → Groq LLM
        ↓
-  Structured Answer with 📁 📝 💻
+  Structured Answer with 
 """
 
 from langchain_groq import ChatGroq
@@ -73,9 +73,9 @@ STRICT RULES:
 FORMAT YOUR ANSWER LIKE THIS:
 
 ---
-📁 Location : <file_path> → <function_or_class_name> (lines X-Y)
-📝 Explanation : <plain English explanation of what this code does>
-💻 Relevant Code :
+ Location : <file_path> → <function_or_class_name> (lines X-Y)
+ Explanation : <plain English explanation of what this code does>
+ Relevant Code :
 <paste the most relevant snippet here>
 ---
 
