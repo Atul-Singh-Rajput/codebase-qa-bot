@@ -1,5 +1,28 @@
 # Codebase Q&A Bot
 
+A RAG-powered API that lets you ask natural language questions about any Python codebase. Point it at a local folder or a public GitHub repo, and it indexes the code into a vector store — then answers questions like "Where is the authentication logic?" or "What does the payment handler do?" with exact file names, function names, and line numbers.
+
+workflow :
+
+Parses Python files using AST to extract meaningful code chunks (functions, classes, etc.)
+
+Embeds them locally using BAAI/bge-small-en-v1.5 — no external embedding API needed
+
+Stores vectors in ChromaDB for fast semantic search
+
+Retrieves the top 5 most relevant chunks and passes them to Groq's llama-3.1-8b-instant for a structured, grounded answer
+
+Key features:
+
+Ingest from a local path or clone directly from a GitHub URL
+
+Answers always cite the source file, function name, and line range
+
+Reset the vector store between projects
+
+Fully Dockerized, REST API via FastAPI
+
+Stack: FastAPI · LangChain · ChromaDB · Groq (LLaMA 3.1) · HuggingFace Embeddings · GitPython
 Ask questions about any Python codebase in plain English.
 Built with **LangChain + Groq (free) + CodeBERT (free) + ChromaDB + FastAPI**.
 
@@ -141,6 +164,7 @@ DELETE /reset
 - [ChromaDB](https://www.trychroma.com/)
 - [FastAPI](https://fastapi.tiangolo.com/)
 
-
+## Working Website Link
+-[Codebase-qa-bot](https://codebase-qa-bot.vercel.app/)
 ## Built With Love By
 - [Atul Singh](https://www.linkedin.com/in/atulsingh2001)
