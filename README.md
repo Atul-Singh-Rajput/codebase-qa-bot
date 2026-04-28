@@ -165,6 +165,6 @@ DELETE /reset
 - [FastAPI](https://fastapi.tiangolo.com/)
 
 ## Working Website Link
--[Codebase-qa-bot](https://codebase-qa-bot.vercel.app/)
+- [Codebase-qa-bot](https://codebase-qa-bot.vercel.app/)
 ## Built With Love By
 - [Atul Singh](https://www.linkedin.com/in/atulsingh2001)
